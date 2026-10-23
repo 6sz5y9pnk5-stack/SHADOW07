@@ -1,0 +1,7 @@
+/* lite: 落ちないための軽量化。重い飾りを止めて、ホログラムの1枚だけ見せる */
+*,*::before,*::after{animation:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;text-shadow:none!important}
+.visual>.p64-stage,.visual>[class^="p5"],.visual>[class^="p6"]{display:none!important}
+.visual{background:#050b1c!important}
+#holo{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;opacity:1!important;z-index:0!important;pointer-events:none!important}
+.visual::before,.visual::after,.shell::before,.shell::after,body::before,body::after,html::before,html::after{content:none!important;display:none!important}
+[class*="p50-"],[class*="p51-"],[class*="p52-"],[class*="p53-"],[class*="p54-"],[class*="p55-"],[class*="p56-"],[class*="p57-"],[class*="p58-"],[class*="p59-"],[class*="p60-"],[class*="p61-"],[class*="p62-"],[class*="p63-"],[class*="p64-"],[class*="p65-"],[class*="p66-"],[class*="p67-"],[class*="p68-"],[class*="p69-"]{display:none!important}
