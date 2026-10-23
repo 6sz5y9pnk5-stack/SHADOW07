@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval' https://esm.run https://esm.sh; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; manifest-src 'self'; media-src blob:; font-src data:; connect-src 'self' https://esm.run https://esm.sh https://*.huggingface.co https://*.xethub.hf.co https://raw.githubusercontent.com https://github.com; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'">
+<meta name="theme-color" content="#070812"><meta name="description" content="SHADOW — 保存状態点検を追加した個人用AIコンパニオン候補">
+<title>SHADOW — Phase 245 Storage Health Candidate</title>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="./style.css">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon-192.png">
+</head>
+<body><main class="shell">
+<button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-controls="mainNav" aria-label="機能メニューを開く">☰</button><div id="safeStatus" class="sr-status" aria-live="polite">ローカル優先</div>
+<section class="visual" aria-label="七色の周波数ビジュアル">
+<!-- Phase 64: original event-horizon instrument; layered refractive geometry, no external assets. -->
+<div class="p64-stage" aria-hidden="true">
+ <div class="p64-fog"></div><div class="p64-depth p64-depth-1"></div><div class="p64-depth p64-depth-2"></div>
+ <svg class="p64-instrument" viewBox="0 0 900 1100" role="presentation">
+  <defs>
+   <linearGradient id="p64-titanium" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#e7eee9" stop-opacity=".62"/><stop offset=".08" stop-color="#52665e" stop-opacity=".8"/><stop offset=".22" stop-color="#101714"/><stop offset=".38" stop-color="#b8c8be" stop-opacity=".28"/><stop offset=".51" stop-color="#030605"/><stop offset=".72" stop-color="#35443d"/><stop offset=".88" stop-color="#a4b4aa" stop-opacity=".42"/><stop offset="1" stop-color="#050806"/></linearGradient>
+   <linearGradient id="p64-edge" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#dce8df" stop-opacity="0"/><stop offset=".28" stop-color="#dce8df" stop-opacity=".08"/><stop offset=".49" stop-color="#eaf3ec" stop-opacity=".8"/><stop offset=".52" stop-color="#7f9d8b" stop-opacity=".12"/><stop offset=".74" stop-color="#c9d9ce" stop-opacity=".42"/><stop offset="1" stop-color="#dce8df" stop-opacity="0"/></linearGradient>
+   <radialGradient id="p64-lens"><stop stop-color="#eff8f0" stop-opacity=".8"/><stop offset=".035" stop-color="#c0d8c8" stop-opacity=".35"/><stop offset=".12" stop-color="#486756" stop-opacity=".22"/><stop offset=".3" stop-color="#0a120d" stop-opacity=".94"/><stop offset=".68" stop-color="#030705"/><stop offset="1" stop-color="#000"/></radialGradient>
+   <filter id="p64-glow"><feGaussianBlur stdDeviation="22"/></filter>
+   <filter id="p64-glass"><feGaussianBlur stdDeviation="1.2"/></filter>
+  </defs>
+  <ellipse cx="450" cy="540" rx="240" ry="330" fill="#8da99a" opacity=".035" filter="url(#p64-glow)"/>
+  <!-- distant fractured aperture planes -->
+  <g fill="none" stroke="#a8beb1" stroke-opacity=".22" stroke-width=".8">
+   <path d="M450 72 L682 230 L762 465 L680 735 L450 1000 L222 735 L138 465 L220 230 Z"/>
+   <path d="M450 130 L640 264 L704 465 L630 704 L450 916 L270 704 L196 465 L260 264 Z" stroke-opacity=".11"/>
+   <path d="M138 465 L340 410 L450 285 L564 410 L762 465 M220 230 L340 410 L270 704 M682 230 L564 410 L630 704 M340 410 L450 540 L564 410 M270 704 L450 650 L630 704"/>
+  </g>
+  <!-- offset floating blades with bevel-like edge lighting -->
+  <g class="p64-blade-back">
+   <path d="M450 112 L565 295 L533 442 L450 502 L366 440 L334 294 Z" fill="url(#p64-titanium)" fill-opacity=".7" stroke="url(#p64-edge)" stroke-width="1.3"/>
+   <path d="M450 112 L450 502 M334 294 L450 344 L565 295 M366 440 L450 405 L533 442" fill="none" stroke="#d6e4da" stroke-opacity=".26"/>
+  </g>
+  <g class="p64-blade-front">
+   <path d="M450 428 L588 475 L637 596 L518 758 L450 801 L382 758 L263 596 L312 475 Z" fill="url(#p64-titanium)" fill-opacity=".72" stroke="url(#p64-edge)" stroke-width="1.3"/>
+   <path d="M450 428 L450 801 M312 475 L386 594 L382 758 M588 475 L514 594 L518 758 M263 596 L386 594 L450 650 L514 594 L637 596" fill="none" stroke="#cbdad0" stroke-opacity=".22"/>
+  </g>
+  <!-- lens stack: deliberately non-concentric, offset optical planes -->
+  <g class="p64-lens-stack">
+   <ellipse cx="450" cy="548" rx="180" ry="98" transform="rotate(-29 450 548)" fill="none" stroke="url(#p64-edge)" stroke-width="2.4"/>
+   <ellipse cx="450" cy="548" rx="148" ry="75" transform="rotate(36 450 548)" fill="none" stroke="#b7cabe" stroke-opacity=".38" stroke-width="1.1"/>
+   <ellipse cx="450" cy="548" rx="118" ry="182" transform="rotate(12 450 548)" fill="none" stroke="#c5d5ca" stroke-opacity=".19" stroke-width=".8"/>
+   <path d="M450 343 L450 427 M450 670 L450 754 M204 548 L326 548 M574 548 L696 548" stroke="url(#p64-edge)" stroke-width="1.4"/>
+   <circle cx="450" cy="548" r="111" fill="url(#p64-lens)" stroke="#d7e4db" stroke-opacity=".42" stroke-width="1.2"/>
+   <circle cx="450" cy="548" r="83" fill="none" stroke="#9bb7a6" stroke-opacity=".27"/>
+   <circle cx="450" cy="548" r="55" fill="none" stroke="#c9dacf" stroke-opacity=".23" stroke-dasharray="1 8"/>
+   <circle cx="450" cy="548" r="18" fill="#d9e9de" fill-opacity=".13" filter="url(#p64-glow)"/>
+   <circle cx="450" cy="548" r="3" fill="#e4f2e8" fill-opacity=".82"/>
+  </g>
+  <!-- sparse precision marks, not decorative telemetry -->
+  <g fill="none" stroke="#b9cdbf" stroke-opacity=".34" stroke-width=".8"><path d="M118 827 L226 766 L275 778 M782 827 L674 766 L625 778 M168 870 L290 801 M732 870 L610 801"/><path d="M450 82 V105 M450 988 V1012 M124 548 H148 M752 548 H776"/></g>
+ </svg>
+ <div class="p64-refraction p64-refraction-a"></div><div class="p64-refraction p64-refraction-b"></div>
+ <div class="p64-label p64-label-a"><i></i><span>OBSERVATION / DEPTH</span></div><div class="p64-label p64-label-b"><span>FIELD RESPONSE</span><i></i></div>
+ <div class="p64-topline"><span>PERCEPTION SYSTEM</span><span>STATE : UNRESOLVED</span></div>
+ <div class="p64-bottomline"><span>INPUT</span><i></i><span>MODEL</span><i></i><span>RESPONSE</span></div><div class="p64-vignette"></div>
+</div>
+<canvas id="wave" tabindex="0" role="button" aria-label="周波数画面。長押しすると機能画面を開きます。Enterキーでも切り替えできます。"></canvas><canvas id="cinema" aria-hidden="true"></canvas><div class="waveform-css" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M -5 42.6 C 12 32.6, 20 53.6, 34 42.6 S 57 32.6, 72 42.6 S 91 52.6, 105 42.6" stroke="#ff555e"/><path d="M -5 44.4 C 12 33.8, 20 55.8, 34 44.4 S 57 34.0, 72 44.4 S 91 54.8, 105 44.4" stroke="#ffad4a"/><path d="M -5 46.2 C 12 35.0, 20 58.0, 34 46.2 S 57 35.400000000000006, 72 46.2 S 91 57.0, 105 46.2" stroke="#ffe86b"/><path d="M -5 48.0 C 12 36.2, 20 60.2, 34 48.0 S 57 36.8, 72 48.0 S 91 59.2, 105 48.0" stroke="#6df5a7"/><path d="M -5 49.8 C 12 37.4, 20 62.4, 34 49.8 S 57 38.199999999999996, 72 49.8 S 91 61.4, 105 49.8" stroke="#5bdcf4"/><path d="M -5 51.6 C 12 38.6, 20 64.6, 34 51.6 S 57 39.6, 72 51.6 S 91 63.6, 105 51.6" stroke="#7188ff"/><path d="M -5 53.4 C 12 39.8, 20 66.80000000000001, 34 53.4 S 57 41.0, 72 53.4 S 91 65.8, 105 53.4" stroke="#c77bff"/></svg></div><div class="core-scene" aria-hidden="true"><div class="core-halo"></div><div class="core-ring ring-a"></div><div class="core-ring ring-b"></div><div class="core-ring ring-c"></div><div class="core-orb"><div class="core-orb-inner"></div></div></div><div class="system-overlay" aria-hidden="true"><div class="hud-corner tl"></div><div class="hud-corner tr"></div><div class="hud-corner bl"></div><div class="hud-corner br"></div><div class="hud-tick top-ticks"></div><div class="hud-tick bottom-ticks"></div><div class="hud-side side-left"></div><div class="hud-side side-right"></div><div class="hud-scan"></div><div class="hud-crosshair"></div></div><div class="visual-state" id="visualState">待機中</div><div class="phase51-interface" aria-hidden="true">
+ <div class="p51-top"><span class="p51-sigil">◈</span><span class="p51-topline">OBSERVER / FIELD INTERFACE</span><span class="p51-status"><i></i> ONLINE</span></div>
+ <div class="p51-left"><div class="p51-index">I / 07</div><div class="p51-vline"></div><div class="p51-readout"><b>FIELD</b><span>RESONANCE</span><i><em></em></i></div><div class="p51-readout"><b>CORE</b><span>STABLE</span><i><em></em></i></div><div class="p51-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+ <div class="p51-right"><div class="p51-coordinate">NØ / 51.08</div><div class="p51-radar"><i></i><i></i><i></i><b></b></div><div class="p51-readout"><b>DEPTH</b><span>UNKNOWN</span></div><div class="p51-verticalword">NON-HUMAN INTELLIGENCE</div></div>
+ <div class="p51-bottom"><span>PERCEPTION LAYER <b>ACTIVE</b></span><i></i><span>NEURAL FIELD</span><span class="p51-bottomright">◌ &nbsp; LISTENING</span></div>
+</div>
+<div class="p54-veil" aria-hidden="true">
+  <div class="p54-header"><span class="p54-mark">⟡</span><span>SHADOW / COGNITIVE FIELD</span><span class="p54-live"><i></i> PRESENT</span></div>
+  <div class="p54-architecture">
+    <svg class="p54-geometry" viewBox="0 0 700 420" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="p54silver" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8f3ff" stop-opacity=".06"/><stop offset=".48" stop-color="#b7d7e9" stop-opacity=".8"/><stop offset="1" stop-color="#7b91b4" stop-opacity=".12"/></linearGradient>
+        <radialGradient id="p54void"><stop stop-color="#b8e9ff" stop-opacity=".15"/><stop offset=".4" stop-color="#6789a9" stop-opacity=".05"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+      </defs>
+      <circle cx="350" cy="210" r="170" fill="url(#p54void)"/>
+      <circle class="p54-orbit p54-orbit1" cx="350" cy="210" r="145"/>
+      <ellipse class="p54-orbit p54-orbit2" cx="350" cy="210" rx="218" ry="83" transform="rotate(-28 350 210)"/>
+      <ellipse class="p54-orbit p54-orbit3" cx="350" cy="210" rx="205" ry="61" transform="rotate(51 350 210)"/>
+      <path class="p54-wave" d="M48 210 C100 210 110 197 142 197 S180 225 208 225 S244 182 274 182 S311 210 350 210 S389 238 419 238 S455 195 485 195 S526 210 552 210 S596 210 652 210"/>
+      <path class="p54-wave p54-wave2" d="M85 210 C135 210 145 204 174 204 S209 217 236 217 S272 199 300 199 S329 210 350 210 S380 222 406 222 S444 203 472 203 S510 210 538 210 S581 210 615 210"/>
+      <path class="p54-cut" d="M350 25 V88 M350 332 V395 M165 210 H226 M474 210 H535"/>
+      <path class="p54-cut" d="M232 83 L251 102 M468 318 L487 337 M468 83 L449 102 M232 337 L251 318"/>
+    </svg>
+    <div class="p54-core"><div class="p54-core-inner"></div><span></span></div>
+    <div class="p54-coordinate p54-c1">FIELD / 01<br><b>UNRESOLVED</b></div>
+    <div class="p54-coordinate p54-c2">COHERENCE<br><b>OBSERVING</b></div>
+    <div class="p54-coordinate p54-c3">DEPTH INDEX <b>— —</b></div>
+  </div>
+  <div class="p54-footer"><span>PERCEPTION IS NOT THE SAME AS UNDERSTANDING</span><span class="p54-pulse">◌ &nbsp; LISTENING</span></div>
+</div>
+
+<div class="p56-nocturne" aria-hidden="true">
+ <div class="p56-atmosphere"></div>
+ <svg class="p56-map" viewBox="0 0 700 700" preserveAspectRatio="xMidYMid meet">
+  <defs>
+   <linearGradient id="p56-edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d7e5e7" stop-opacity=".05"/><stop offset=".42" stop-color="#a9c4c8" stop-opacity=".78"/><stop offset=".72" stop-color="#6f9299" stop-opacity=".25"/><stop offset="1" stop-color="#dce9e9" stop-opacity=".04"/></linearGradient>
+   <radialGradient id="p56-void"><stop stop-color="#a8d5d8" stop-opacity=".12"/><stop offset=".38" stop-color="#54767b" stop-opacity=".035"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+   <filter id="p56-soft"><feGaussianBlur stdDeviation="2.2"/></filter>
+  </defs>
+  <circle cx="350" cy="350" r="280" fill="url(#p56-void)"/>
+  <path class="p56-contour" d="M92 350 C122 172 261 94 350 95 C494 96 608 211 608 350 C608 490 493 606 350 606 C219 606 99 508 92 350Z"/>
+  <path class="p56-contour p56-contour2" d="M143 350 C157 224 252 145 350 145 C464 145 555 238 555 350 C555 466 460 556 350 556 C244 556 151 471 143 350Z"/>
+  <path class="p56-scar" d="M350 62 L350 192 M350 508 L350 638 M62 350 L192 350 M508 350 L638 350"/>
+  <path class="p56-scar" d="M166 166 L245 245 M455 455 L534 534 M534 166 L455 245 M245 455 L166 534"/>
+  <path class="p56-arc p56-arc1" d="M350 105 A245 245 0 0 1 595 350"/>
+  <path class="p56-arc p56-arc2" d="M105 350 A245 245 0 0 1 350 105"/>
+  <path class="p56-arc p56-arc3" d="M350 595 A245 245 0 0 1 105 350"/>
+  <path class="p56-arc p56-arc4" d="M595 350 A245 245 0 0 1 350 595"/>
+  <path class="p56-vector" d="M58 350 H235 L268 333 L292 350 L318 310 L342 390 L366 326 L389 350 H442 L465 340 L484 350 H642"/>
+  <path class="p56-vector p56-vector2" d="M76 362 H218 L255 362 L281 370 L305 350 L328 369 L350 362 L373 355 L397 362 H470 L493 354 L512 362 H625"/>
+  <path class="p56-spine" d="M350 230 L370 260 L400 280 L420 320 L420 380 L400 420 L370 440 L350 470 L330 440 L300 420 L280 380 L280 320 L300 280 L330 260 Z"/>
+  <path class="p56-spine p56-spine2" d="M350 260 L386 300 L386 400 L350 440 L314 400 L314 300 Z"/>
+  <circle class="p56-focus" cx="350" cy="350" r="10"/>
+  <circle class="p56-focus-ring" cx="350" cy="350" r="28"/>
+ </svg>
+ <div class="p56-core"><i></i></div>
+ <div class="p56-side p56-side-a"><span>01 / PERCEPTION</span><i></i><b>THE SILENT FIELD</b></div>
+ <div class="p56-side p56-side-b"><span>02 / INFERENCE</span><i></i><b>UNKNOWN DEPTH</b></div>
+ <div class="p56-coordinate">− 35° / 0° / ∞<br><span>OBSERVATION WITHOUT ASSUMPTION</span></div>
+ <div class="p56-bottomline"><i></i><span>NO SIGNAL IS ASSUMED TRUE</span><b>∴</b></div>
+</div>
+<div class="p57-reliquary" aria-hidden="true">
+ <div class="p57-grain"></div><div class="p57-plane"></div>
+ <svg class="p57-architecture" viewBox="0 0 400 400" aria-hidden="true">
+  <path d="M200 18 L334 104 L362 250 L235 373 L82 315 L35 169 Z"/>
+  <path class="faint" d="M200 18 L235 373 M35 169 L362 250 M82 315 L334 104 M35 169 L200 200 L362 250 M200 18 L200 200 L235 373"/>
+  <path d="M200 52 L304 121 L320 239 L230 330 L105 291 L73 174 Z"/>
+  <path class="bright" d="M200 52 L200 133 L264 173 L320 239 M73 174 L139 194 L200 133 M139 194 L153 264 L230 330 M153 264 L200 228 L264 173"/>
+  <path d="M105 291 L153 264 L139 194 L200 200 L264 173 M200 200 L200 228 M200 200 L304 121"/>
+  <path class="faint" d="M55 80 L345 320 M80 350 L330 50 M20 200 H380 M200 20 V380"/>
+  <path class="bright" d="M188 142 L212 142 L228 169 L212 194 L188 194 L172 169 Z"/>
+  <line x1="172" y1="169" x2="139" y2="194"/><line x1="228" y1="169" x2="264" y2="173"/>
+ </svg>
+ <div class="p57-aperture"></div>
+ <div class="p57-label p57-label-a">FORM / 07<strong>THE UNNAMED</strong></div>
+ <div class="p57-label p57-label-b">DEPTH / ∞<strong>OBSERVE FIRST</strong></div>
+ <div class="p57-coordinate">黒の中に、構造がある。<small>NO ASSUMPTION · NO UNVERIFIED SIGNAL</small></div><div class="p57-rule"></div>
+</div>
+<div class="p58-depth" aria-hidden="true">
+ <div class="p58-vignette"></div><div class="p58-grid"></div>
+ <div class="p58-depth-label p58-left"><span>FIELD / 08</span><b>PERCEPTION</b><i></i></div>
+ <div class="p58-depth-label p58-right"><span>DEPTH / ∞</span><b>UNRESOLVED</b><i></i></div>
+ <div class="p58-stage">
+  <div class="p58-shadow"></div>
+  <div class="p58-ring p58-ring-back"></div><div class="p58-ring p58-ring-mid"></div><div class="p58-ring p58-ring-front"></div>
+  <div class="p58-poly p58-poly-a"></div><div class="p58-poly p58-poly-b"></div>
+  <div class="p58-sphere"><div class="p58-sphere-glint"></div><div class="p58-sphere-meridian"></div><div class="p58-sphere-latitude"></div><div class="p58-sphere-heart"></div></div>
+  <div class="p58-orbit-node p58-node-a"></div><div class="p58-orbit-node p58-node-b"></div>
+  <svg class="p58-signal" viewBox="0 0 600 220" preserveAspectRatio="none"><path class="p58-signal-trail" d="M0 110 C80 110 95 108 130 110 S175 115 205 110 S240 75 260 110 S282 145 300 110 S322 74 345 110 S390 115 420 110 S500 110 600 110"/><path class="p58-signal-core" d="M0 110 C80 110 95 108 130 110 S175 115 205 110 S240 75 260 110 S282 145 300 110 S322 74 345 110 S390 115 420 110 S500 110 600 110"/></svg>
+ </div>
+ <div class="p58-bottom"><span>NO ASSUMPTION</span><i></i><span>OBSERVE → INFER → VERIFY</span><em>08 : 00</em></div>
+</div>
+</section>
+<nav class="nav" id="mainNav" aria-label="機能メニュー"><button id="featureClose" class="feature-close" type="button">閉じる（波形画面へ戻る）</button><button class="active" data-tab="chat">会話</button><button data-tab="memory">記憶</button><button data-tab="tasks">作業計画</button><button data-tab="knowledge">知識記録</button><button data-tab="evidence">証拠保全</button><button data-tab="lab">研究室</button><button data-tab="research">技術台帳</button><button data-tab="safety">安全設定</button><button data-tab="shadowBridge">統合ブリッジ</button></nav>
+<section class="panel" id="tab-chat"><h2 id="chatHeading">ミントとSHADOWの会話</h2><p class="hint">ローカル応答を基本に、同一オリジンの安全なサーバー接続が設定されている場合のみGeminiへ送信します。送信前に内容を確認してください。</p><div class="chatlog" id="chatlog" aria-live="polite"></div><div class="composer"><textarea id="message" rows="2" maxlength="3000" placeholder="話したいことを入力…" aria-label="メッセージ"></textarea><button id="send" class="primary">送信</button></div><div class="actions"><button id="loadLocalModel" type="button">端末内AIを読み込む（初回ダウンロード）</button><button id="micPermissionCheck" type="button">🎙 マイク権限を検査</button><button id="mic">🎙 ブラウザー音声認識</button><button id="speakToggle">🔊 読み上げ ON</button><button id="stopSpeech">読み上げ停止</button><button id="clearChat" class="danger">会話を消去</button></div><div class="note" id="voiceNote">音声入力は3経路を区別します：①この画面のブラウザー音声認識、②入力欄＋iPhoneキーボードのマイク（OS側の音声入力）、③マイク権限検査（getUserMedia）。①の利用に③の合格を必須にしません。②はiOS設定・キーボードによります。音声処理先は実装に依存します。</div><div class="note" id="localModelStatus" role="status" aria-live="polite">端末内AI：未読み込み。読み込みには対応ブラウザーと初回のモデルダウンロードが必要です。</div></section>
+<section class="panel hidden" id="tab-memory"><h2>記憶コア</h2><p class="hint">この端末のブラウザーに保存。機密情報・パスワードは保存しないでください。</p><div class="grid"><div class="tile"><b>会話ログ</b><span id="memoryCount">0 件</span></div><div class="tile"><b>保存領域</b><span id="memoryBackend">確認中</span></div></div><div class="field"><label for="memo">SHADOWに覚えさせるメモ</label><textarea id="memo" rows="3" maxlength="2000" placeholder="あとで参照したい短いメモ（機密情報は不可）"></textarea></div><div class="actions"><button id="saveMemo" class="primary">メモを保存</button><button id="exportData">バックアップを書き出す</button><button id="importButton">バックアップを復元</button><input id="importFile" class="hidden" type="file" accept="application/json,.json"></div><div id="memoList"></div><div class="actions"><button id="clearMemory" class="danger">保存データを全消去</button></div></section>
+
+<section class="panel hidden" id="tab-tasks"><h2>作業計画 / タスクキュー</h2><p class="hint">依頼を小さな作業に分解して保存する土台です。現段階では自動実行せず、予定と状態を管理します。</p><div class="note" id="phase82-resume-status" role="status" aria-live="polite">中断後は保存済みのタスクを確認できます。このHTMLはバックグラウンドでの自動実行や常時稼働を保証しません。</div><div class="field"><label for="taskTitle">作業名</label><input id="taskTitle" maxlength="160" placeholder="例：公開技術のライセンス確認"></div><div class="field"><label for="taskDetail">作業メモ</label><textarea id="taskDetail" rows="3" maxlength="2000" placeholder="目的・確認事項"></textarea></div><div class="field"><label for="taskCriteria">完了条件（必須）</label><input id="taskCriteria" maxlength="1000" placeholder="例：3つのテストがすべて成功"></div><div class="field"><label for="taskPriority">優先順位</label><select id="taskPriority"><option value="normal">通常</option><option value="high">高</option><option value="low">低</option></select></div><div class="actions"><button id="addTask" class="primary">作業を追加</button><button id="draftTaskPlan">目的から作業案を作る</button><button id="refreshTasks">一覧を更新</button></div><div id="taskStats" class="grid" aria-live="polite"></div><div id="taskList"></div></section>
+<section class="panel hidden" id="tab-knowledge"><h2>知識記録 / 情報源台帳</h2><p class="hint">ここは手動で情報源と分析を記録する場所です。URLを保存しただけでは、ページの取得・検証は行われません。外部通信はしません。</p><div class="field"><label for="knowledgeTitle">タイトル *</label><input id="knowledgeTitle" maxlength="200" placeholder="情報のタイトル"></div><div class="field"><label for="knowledgeUrl">URL（http/httpsのみ）</label><input id="knowledgeUrl" maxlength="2048" inputmode="url" placeholder="https://..."></div><div class="field"><label for="knowledgeSource">情報源名</label><input id="knowledgeSource" maxlength="200" placeholder="サイト名・文書名・発行元"></div><div class="field"><label for="knowledgeCheckedAt">確認日時（実際に確認した場合のみ）</label><input id="knowledgeCheckedAt" maxlength="80" placeholder="例：2026-10-17 14:30 JST"></div><div class="field"><label for="knowledgeSummary">要約</label><textarea id="knowledgeSummary" rows="2" maxlength="3000"></textarea></div><div class="field"><label for="knowledgeFacts">情報源に書かれている事実</label><textarea id="knowledgeFacts" rows="3" maxlength="5000"></textarea></div><div class="field"><label for="knowledgeAnalysis">SHADOW側の分析・推論</label><textarea id="knowledgeAnalysis" rows="3" maxlength="5000"></textarea></div><div class="field"><label for="knowledgeConfidence">確信度</label><select id="knowledgeConfidence"><option value="unknown">未評価</option><option value="low">低</option><option value="medium">中</option><option value="high">高</option></select></div><div class="field"><label for="knowledgeUnknowns">未確認事項</label><textarea id="knowledgeUnknowns" rows="2" maxlength="2000"></textarea></div><div class="field"><label for="knowledgeConflicts">矛盾・注意点</label><textarea id="knowledgeConflicts" rows="2" maxlength="2000"></textarea></div><div class="actions"><button id="saveKnowledge" class="primary">知識を保存</button><button id="exportKnowledge">知識をエクスポート</button><button id="importKnowledgeButton">知識をインポート</button><input id="importKnowledgeFile" class="hidden" type="file" accept="application/json,.json"></div><div class="field"><label for="knowledgeSearch">タイトル・情報源を検索</label><input id="knowledgeSearch" maxlength="200" placeholder="検索語を入力"></div><div class="actions"><button id="searchKnowledgeButton">検索</button><button id="refreshKnowledge">全件表示</button></div><p id="knowledgeStatus" class="hint" role="status" aria-live="polite">ローカル保存のみ。検索は保存済み記録内で行います。</p><div id="knowledgeList"></div></section>
+<section class="panel hidden" id="tab-evidence"><h2>証拠保全 / ローカル保管</h2><p class="hint">選んだ元ファイルを端末内DBへ保存し、SHA-256ハッシュと取得時刻・ファイル情報を記録します。これは真正性や法的証拠能力を自動で保証するものではありません。</p><div class="note">安全のため、外部へ自動送信しません。対応環境では元ファイルをそのまま保存します。ファイルは1件20MBまで。端末故障やブラウザーデータ消去に備え、元ファイルを「ファイル」アプリ等にも保管してください。</div><div class="field"><label for="evidenceFile">元ファイル（写真・音声・動画・書類）</label><input id="evidenceFile" type="file" accept="image/*,audio/*,video/*,application/pdf,text/plain,application/json"></div><div class="field"><label for="evidenceNote">取得状況・説明（推測と事実を分けて記録）</label><textarea id="evidenceNote" rows="3" maxlength="2000" placeholder="いつ・どこで・どのように取得したか。分からないことは不明と記録"></textarea></div><div class="actions"><button id="saveEvidence" class="primary">元データを保存・ハッシュ作成</button><button id="refreshEvidence">記録を更新</button><button id="exportEvidenceManifest">証拠一覧を書き出す</button></div><p id="evidenceStatus" class="hint" role="status">初期化後、対応状況を表示します。</p><div id="evidenceList"></div></section>
+<section class="panel hidden" id="tab-lab"><h2>研究室 / 機能診断</h2><p class="hint">機能を実測して、対応状況を確認します。表示だけの「完成」判定はしません。</p><div class="grid" id="diagnostics"></div><div class="actions"><button id="runTests" class="primary">診断を再実行</button><button id="copyReport">診断結果をコピー</button></div><div class="field"><label for="codePad">安全なコードメモ（表示・編集のみ。ここから実行しません）</label><textarea id="codePad" rows="5" maxlength="10000" placeholder="設計メモやコード断片を保存できます。入力内容は実行されません。"></textarea></div><div class="actions"><button id="saveCode">メモを保存</button><button id="copyCode">メモをコピー</button></div>
+<div class="note" id="phase83AuditNote">Phase 83 読み取り専用自己点検：保存データの読み出し、バックアップ作成・事前検査、不正形式の拒否を確認します。データの追加・削除・復元は行いません。</div>
+<div class="actions"><button id="phase83RunAudit" class="primary" type="button">保存・復旧の自己点検</button><button id="phase83ExportAudit" type="button" disabled>点検レポートを書き出す</button></div>
+<div id="phase83AuditSummary" class="hint" role="status" aria-live="polite">まだ点検していません。</div>
+<div id="phase83AuditResults" class="grid" aria-live="polite"></div>
+</section>
+<section class="panel hidden" id="tab-research"><h2>技術台帳 / 無料・安全・利用条件</h2><p class="hint">ここに表示するのは調査候補です。表示や公開コードの存在は、安全性・商用利用権・iPhoneでの動作を保証しません。ライブラリ本体・モデル重み・学習データ・音声素材は別々に確認します。</p><div class="note">安全ゲート：ライセンス不明、商用条件不明、モデル重みの条件未確認、またはiPhoneで実行できるか未検証の候補は、自動採用しません。外部サイトへの自動通信やコード実行は行いません。</div><div id="researchStats" class="grid"></div><div id="researchRegistry"></div><p class="hint">※各リンクは参考資料を開くだけです。SHADOWはページを自動ダウンロード・実行しません。採用前に対象バージョンと依存関係を個別確認します。</p></section>
+<section class="panel hidden" id="tab-shadowBridge"><h2>統合ブリッジ / Phase 148</h2><p class="hint">SHADOWの作業計画・ブラウザー機能の状態を確認する接続層です。AIモデルや外部実行ツールは未接続。計画の作成だけでは何も実行しません。</p><div id="bridgeCapabilities" class="grid" aria-live="polite"></div><div class="field"><label for="bridgeGoal">達成したい目的</label><textarea id="bridgeGoal" rows="2" maxlength="1000" placeholder="例：iPhone上で動くローカルAIの候補を比較する"></textarea></div><div class="field"><label for="bridgeCriteria">完了条件（必須）</label><textarea id="bridgeCriteria" rows="2" maxlength="1000" placeholder="例：ライセンス・実行条件・実機テスト方法を根拠付きで比較する"></textarea></div><div class="actions"><button id="bridgeBuildPlan" class="primary" type="button">安全な作業計画を作る</button><button id="bridgeSaveTask" type="button" disabled>作業計画に保存</button></div><div id="bridgePlanResult" class="hint" aria-live="polite">目的と完了条件を入力して計画を作成してください。</div><p id="bridgeStatus" class="note" role="status" aria-live="polite">未確認</p></section>
+<section class="panel hidden" id="tab-safety"><h2>安全設定</h2><div class="note">SHADOWは試作です。完全な安全性、データ消失ゼロ、常時動作は保証できません。大事な内容は定期的にバックアップしてください。</div><div class="tile" id="phase82-companion-settings"><b>相棒の呼び名</b><p class="hint">SHADOWが呼ぶユーザー名。初期設定は「ミント」。この端末の保存領域に記録します。</p><div class="field"><label for="phase82-user-name">呼び名（20文字以内）</label><input id="phase82-user-name" maxlength="20" value="ミント" autocomplete="nickname"></div><div class="actions"><button id="phase82-save-user-name" class="primary" type="button">呼び名を保存</button></div><p id="phase82-name-status" class="hint" role="status" aria-live="polite">初期設定：ミント</p></div><div class="grid"><div class="tile"><b>外部AI接続</b><span>無効。APIキー入力欄なし。</span></div><div class="tile"><b>コード自動実行</b><span>無効。eval / new Function を使用しません。</span></div><div class="tile"><b>データの扱い</b><span>入力をHTMLとして実行せず、テキストとして表示。</span></div><div class="tile"><b>音声機能</b><span>ブラウザー標準機能。対応状況・処理先は環境依存。</span></div></div><h3>OWASP GenAI LLM Top 10 — 2026 脅威チェックリスト</h3>
+<p class="hint">これは脅威の見落としを減らすための設計台帳です。表示されたことは、防御の実装・合格・安全認証を意味しません。現時点では各項目ともSHADOW全体への正式な攻撃テストは未完了です。</p>
+<div class="grid">
+<div class="tile"><b>LLM01: Prompt Injection</b><span>Web・ファイル・音声などの外部指示で保護ルールを上書きさせない。状態：未検証</span></div>
+<div class="tile"><b>LLM02: Sensitive Information Disclosure</b><span>秘密情報・会話・記憶の意図しない開示を防ぐ。状態：未検証</span></div>
+<div class="tile"><b>LLM03: Excessive Agency</b><span>最小権限、提案と実行の分離、重大操作の明示承認。状態：一部の設計のみ</span></div>
+<div class="tile"><b>LLM04: Supply Chain</b><span>配布元、依存関係、署名、バージョン、ライセンスを確認。状態：候補台帳あり・全面監査未完了</span></div>
+<div class="tile"><b>LLM05: Data and Model Poisoning</b><span>外部情報を確定記憶や保護設定へ自動登録しない。状態：未検証</span></div>
+<div class="tile"><b>LLM06: Unbounded Consumption</b><span>再試行・処理量・ファイルサイズ・タスク回数を制限。状態：一部に上限あり・全体未検証</span></div>
+<div class="tile"><b>LLM07: Misinformation</b><span>出典・日付・確度を記録し、推測と確認済み事実を分ける。状態：未検証</span></div>
+<div class="tile"><b>LLM08: Hidden Context Exposure</b><span>内部指示や非公開コンテキストを外部へ出さない。状態：未検証</span></div>
+<div class="tile"><b>LLM09: Vector and Embedding Weaknesses</b><span>将来RAG導入時に検索混同、アクセス境界、汚染を試験。状態：ベクトルDB未導入・未検証</span></div>
+<div class="tile"><b>LLM10: Improper Output Handling</b><span>AI出力をコードやHTMLとして無検査で実行しない。状態：現在のUIはテキスト表示・全経路未検証</span></div>
+</div>
+<div class="note">現在のSHADOWはローカルのルールベース試作で、LLM推論は未接続です。このチェックリストはOWASP 2026の分類をSHADOW向けに整理したもので、正式な監査や防御の証明ではありません。</div>
+<div class="actions"><button id="downloadHtml">この画面のHTMLを保存</button><button id="showPrivacy">保存内容について</button></div><p id="privacyInfo" class="hint hidden">会話とメモはブラウザー内に保存されます。同じ端末を使う人や端末内の悪意あるソフトからの閲覧を完全には防げません。共有端末では使用しないでください。ブラウザーデータ消去で記憶が失われる場合があります。</p>
+<div class="p55-field" aria-hidden="true">
+ <div class="p55-shadow"></div>
+ <svg class="p55-structure" viewBox="0 0 700 420" preserveAspectRatio="xMidYMid meet">
+  <defs>
+   <linearGradient id="p55-metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e5f2f5" stop-opacity=".04"/><stop offset=".48" stop-color="#b8d4db" stop-opacity=".8"/><stop offset="1" stop-color="#65818c" stop-opacity=".08"/></linearGradient>
+   <radialGradient id="p55-light"><stop stop-color="#d8f5f8" stop-opacity=".16"/><stop offset=".42" stop-color="#6e9da9" stop-opacity=".04"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+  </defs>
+  <ellipse cx="350" cy="210" rx="285" ry="190" fill="url(#p55-light)"/>
+  <path class="p55-arc p55-a" d="M350 48 A162 162 0 0 1 512 210"/>
+  <path class="p55-arc p55-b" d="M512 210 A162 162 0 0 1 350 372"/>
+  <path class="p55-arc p55-c" d="M350 372 A162 162 0 0 1 188 210"/>
+  <path class="p55-arc p55-d" d="M188 210 A162 162 0 0 1 350 48"/>
+  <path class="p55-slice" d="M350 26 L350 104 M350 316 L350 394 M166 210 L247 210 M453 210 L534 210"/>
+  <path class="p55-signal" d="M38 210 H170 L198 210 L215 194 L231 227 L248 176 L266 241 L284 200 L301 210 H399 L417 210 L434 194 L450 227 L467 176 L485 241 L503 200 L520 210 H662"/>
+  <path class="p55-signal p55-signal2" d="M38 210 H185 L212 210 L231 202 L249 219 L267 192 L284 225 L302 210 H398 L416 210 L434 202 L452 219 L470 192 L487 225 L505 210 H662"/>
+  <path class="p55-fine" d="M350 120 L366 150 L398 166 L414 198 L414 222 L398 254 L366 270 L350 300 L334 270 L302 254 L286 222 L286 198 L302 166 L334 150 Z"/>
+ </svg>
+ <div class="p55-kernel"><i></i><b></b></div>
+ <div class="p55-word p55-word-left">SIGNAL<br><span>IN / OUT</span></div>
+ <div class="p55-word p55-word-right">UNKNOWN<br><span>NOT EMPTY</span></div>
+ <div class="p55-index">∴</div>
+</div>
+
+</section>
+<div class="footer">SHADOW v1.3 · タスク管理・知識記録強化 · 本格AI推論は未接続</div></main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="p59-architecture" aria-hidden="true">
+  <div class="p59-atmosphere"></div><div class="p59-horizon"></div>
+  <div class="p59-caption p59-cap-left"><span>COGNITIVE FIELD</span><b>UNMAPPED</b><i></i></div>
+  <div class="p59-caption p59-cap-right"><span>DEPTH REGISTER</span><b>BEYOND ZERO</b><i></i></div>
+  <div class="p59-chamber">
+    <div class="p59-shadow-floor"></div>
+    <div class="p59-frame p59-frame-back"><i></i><i></i><i></i></div>
+    <div class="p59-blade p59-blade-left"></div><div class="p59-blade p59-blade-right"></div>
+    <div class="p59-spine"><div class="p59-spine-edge"></div><div class="p59-spine-face"></div><div class="p59-spine-cut"></div><div class="p59-spine-light"></div></div>
+    <div class="p59-frame p59-frame-front"><i></i><i></i><i></i></div>
+    <div class="p59-aperture"><div class="p59-aperture-inner"></div><div class="p59-aperture-point"></div></div>
+    <div class="p59-beam"></div><div class="p59-scanline"></div>
+    <div class="p59-fragment p59-fragment-a"></div><div class="p59-fragment p59-fragment-b"></div><div class="p59-fragment p59-fragment-c"></div>
+  </div>
+  <div class="p59-foot"><span>NO SIGNAL IS ASSUMED</span><i></i><b>OBSERVATION / CONTINUOUS</b></div>
+  <div class="p59-vignette"></div>
+</div>
+
+
+
+<!-- Phase 60: original deep-space instrument. CSS-only, no external resources. -->
+<div class="p60-world" aria-hidden="true">
+  <div class="p60-fog"></div><div class="p60-grain"></div>
+  <div class="p60-topline"><span>FIELD / 09</span><span>UNCLASSIFIED SPACE</span></div>
+  <div class="p60-axis"></div>
+  <div class="p60-machine">
+    <div class="p60-shadow"></div>
+    <div class="p60-arc p60-arc-back"></div><div class="p60-arc p60-arc-mid"></div><div class="p60-arc p60-arc-front"></div>
+    <div class="p60-shell p60-shell-back"></div><div class="p60-shell p60-shell-side"></div><div class="p60-shell p60-shell-face"><div class="p60-bevel"></div></div>
+    <div class="p60-aperture"><div class="p60-aperture-rim"></div><div class="p60-aperture-glass"></div><div class="p60-aperture-core"></div><div class="p60-aperture-reflection"></div></div>
+    <div class="p60-sweep"></div><div class="p60-trace p60-trace-a"></div><div class="p60-trace p60-trace-b"></div>
+    <div class="p60-prism p60-prism-a"></div><div class="p60-prism p60-prism-b"></div>
+  </div>
+  <div class="p60-leftnote"><i></i><span>DEPTH MAP</span><b>NO FIXED ORIGIN</b></div>
+  <div class="p60-rightnote"><span>COHERENCE</span><b>OBSERVING</b><i></i></div>
+  <svg class="p60-wave" viewBox="0 0 1000 220" preserveAspectRatio="none"><path class="p60-wave-glow" d="M0 110 C95 110 108 107 150 110 S205 132 240 110 S295 73 330 110 S390 147 430 110 S480 96 520 110 S575 128 615 110 S680 56 720 110 S775 159 815 110 S900 108 1000 110"/><path class="p60-wave-line" d="M0 110 C95 110 108 107 150 110 S205 132 240 110 S295 73 330 110 S390 147 430 110 S480 96 520 110 S575 128 615 110 S680 56 720 110 S775 159 815 110 S900 108 1000 110"/></svg>
+  <div class="p60-bottomline"><span>PASSIVE SENSING</span><i></i><span>NO EXTERNAL LINK</span><i></i><b>01 — 04</b></div>
+  <div class="p60-edge"></div>
+</div>
+
+
+
+<!-- Phase 61: cinematic volumetric architecture, no external assets or network. -->
+<div class="p61-scene" aria-hidden="true">
+  <div class="p61-atmosphere"></div><div class="p61-depthfield"></div>
+  <div class="p61-header"><span>NOCTILUCENT / 01</span><span>COGNITIVE SPACE</span></div>
+  <div class="p61-vault">
+    <div class="p61-wall p61-wall-a"></div><div class="p61-wall p61-wall-b"></div>
+    <div class="p61-slab p61-slab-a"></div><div class="p61-slab p61-slab-b"></div>
+    <div class="p61-lens-stack"><div class="p61-lens p61-lens-outer"></div><div class="p61-lens p61-lens-middle"></div><div class="p61-lens p61-lens-inner"></div><div class="p61-darkglass"></div><div class="p61-lightwell"></div></div>
+    <div class="p61-lightblade p61-blade-a"></div><div class="p61-lightblade p61-blade-b"></div>
+    <div class="p61-refraction"></div>
+  </div>
+  <svg class="p61-signal" viewBox="0 0 1200 260" preserveAspectRatio="none"><defs><linearGradient id="p61line" x1="0" x2="1"><stop offset="0" stop-color="#d4dedb" stop-opacity="0"/><stop offset=".35" stop-color="#a8c3bb" stop-opacity=".16"/><stop offset=".5" stop-color="#e8f2ec" stop-opacity=".9"/><stop offset=".68" stop-color="#91b2a7" stop-opacity=".25"/><stop offset="1" stop-color="#d4dedb" stop-opacity="0"/></linearGradient><filter id="p61blur"><feGaussianBlur stdDeviation="5"/></filter></defs><path class="p61-signal-glow" d="M0 130 C150 130 170 130 260 130 S340 129 395 130 S430 175 480 130 S540 66 600 130 S660 190 720 130 S790 108 840 130 S940 131 1200 130"/><path class="p61-signal-line" d="M0 130 C150 130 170 130 260 130 S340 129 395 130 S430 175 480 130 S540 66 600 130 S660 190 720 130 S790 108 840 130 S940 131 1200 130"/></svg>
+  <div class="p61-side p61-side-left"><i></i><span>PHASE / SILENT</span><b>DEPTH IS NOT DECORATION</b></div><div class="p61-side p61-side-right"><span>FIELD RESPONSE</span><i></i><b>LISTENING</b></div>
+  <div class="p61-footer"><span>NO EXTERNAL LINK</span><i></i><span>PASSIVE STATE</span><i></i><b>01 : 61</b></div><div class="p61-vignette"></div>
+</div>
+
+
+
+<!-- Phase 62: cinematic spatial intelligence; replaces game-like object/HUD with layered optical space. -->
+<div class="p62-space" aria-hidden="true">
+  <div class="p62-haze"></div><div class="p62-architecture p62-architecture-back"></div><div class="p62-architecture p62-architecture-mid"></div>
+  <div class="p62-plane p62-plane-left"></div><div class="p62-plane p62-plane-right"></div>
+  <svg class="p62-optics" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <radialGradient id="p62glass"><stop offset="0" stop-color="#d7e8e0" stop-opacity=".10"/><stop offset=".28" stop-color="#7eaaa0" stop-opacity=".07"/><stop offset=".72" stop-color="#0a1413" stop-opacity=".92"/><stop offset="1" stop-color="#020505"/></radialGradient>
+      <linearGradient id="p62edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e0e8e2" stop-opacity="0"/><stop offset=".28" stop-color="#b5cbc1" stop-opacity=".62"/><stop offset=".5" stop-color="#526e66" stop-opacity=".10"/><stop offset=".76" stop-color="#dce9e0" stop-opacity=".46"/><stop offset="1" stop-color="#dce9e0" stop-opacity="0"/></linearGradient>
+      <filter id="p62blur"><feGaussianBlur stdDeviation="12"/></filter>
+    </defs>
+    <g class="p62-parallax-a" fill="none" stroke="url(#p62edge)">
+      <path stroke-width="1.2" d="M500 95 L760 245 L835 500 L710 765 L500 900 L265 760 L165 500 L250 240 Z"/>
+      <path stroke-width=".7" opacity=".7" d="M500 145 L716 270 L780 500 L680 720 L500 835 L310 720 L220 500 L285 270 Z"/>
+      <path stroke-width=".5" opacity=".55" d="M500 95 L500 900 M165 500 L835 500 M250 240 L710 765 M760 245 L265 760"/>
+    </g>
+    <g class="p62-parallax-b" fill="none" stroke="#b6d0c5">
+      <ellipse cx="500" cy="500" rx="285" ry="130" transform="rotate(-32 500 500)" stroke-width="1.1" stroke-opacity=".35"/>
+      <ellipse cx="500" cy="500" rx="220" ry="105" transform="rotate(54 500 500)" stroke-width=".8" stroke-opacity=".3"/>
+      <ellipse cx="500" cy="500" rx="165" ry="255" transform="rotate(19 500 500)" stroke-width=".65" stroke-opacity=".25"/>
+    </g>
+    <circle cx="500" cy="500" r="146" fill="url(#p62glass)" stroke="#b5cfc2" stroke-opacity=".34" stroke-width="1.1"/>
+    <circle cx="500" cy="500" r="123" fill="none" stroke="#d8e7df" stroke-opacity=".12"/>
+    <circle cx="500" cy="500" r="82" fill="none" stroke="#9fc0b1" stroke-opacity=".26" stroke-width=".8"/>
+    <circle cx="500" cy="500" r="34" fill="#7b9b8c" fill-opacity=".06" filter="url(#p62blur)"/>
+    <path d="M100 500 C250 500 330 500 410 500 S463 498 482 500 S493 507 500 500 S516 485 530 500 S610 502 690 500 S830 500 900 500" fill="none" stroke="#cfe3d8" stroke-opacity=".9" stroke-width="1.05" class="p62-signal"/>
+    <path d="M500 180 L500 385 M500 615 L500 820 M180 500 L385 500 M615 500 L820 500" fill="none" stroke="#b8d2c5" stroke-opacity=".22" stroke-width=".8"/>
+  </svg>
+  <div class="p62-lightcut p62-lightcut-one"></div><div class="p62-lightcut p62-lightcut-two"></div>
+  <div class="p62-header"><span>FIELD / 00</span><span>INTELLIGENCE IN MOTION</span></div>
+  <div class="p62-marker p62-marker-a"><i></i><span>SPATIAL FIELD</span></div><div class="p62-marker p62-marker-b"><i></i><span>LIVE RESPONSE</span></div>
+  <div class="p62-baseline"><span>PERCEPTION</span><i></i><span>INFERENCE</span><i></i><span>ADAPTATION</span></div>
+  <div class="p62-shade"></div>
+</div>
+
+<!-- Phase 63: original blackglass spatial intelligence; CSS/SVG only, no network or external libraries. -->
+<div class="p63-blackglass" aria-hidden="true">
+  <div class="p63-atmosphere"></div><div class="p63-depth p63-depth-back"></div><div class="p63-depth p63-depth-front"></div>
+  <div class="p63-monolith">
+    <svg viewBox="0 0 720 900" class="p63-machine" role="presentation">
+      <defs>
+        <linearGradient id="p63-metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8e0dc" stop-opacity=".06"/><stop offset=".16" stop-color="#aebdb7" stop-opacity=".55"/><stop offset=".31" stop-color="#111a18" stop-opacity=".96"/><stop offset=".55" stop-color="#52665f" stop-opacity=".3"/><stop offset=".78" stop-color="#020605"/><stop offset="1" stop-color="#a4b9b0" stop-opacity=".42"/></linearGradient>
+        <linearGradient id="p63-edge" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#d9e5df" stop-opacity="0"/><stop offset=".48" stop-color="#d9e5df" stop-opacity=".72"/><stop offset=".52" stop-color="#9bb6aa" stop-opacity=".14"/><stop offset="1" stop-color="#d9e5df" stop-opacity="0"/></linearGradient>
+        <radialGradient id="p63-core"><stop stop-color="#d5e5dc" stop-opacity=".5"/><stop offset=".18" stop-color="#829e91" stop-opacity=".16"/><stop offset=".62" stop-color="#0b1411" stop-opacity=".95"/><stop offset="1" stop-color="#010302"/></radialGradient>
+        <filter id="p63-soft"><feGaussianBlur stdDeviation="18"/></filter>
+      </defs>
+      <g class="p63-shell-back">
+        <path d="M360 35 L548 162 L635 362 L570 611 L360 842 L150 611 L85 362 L172 162 Z" fill="url(#p63-metal)" stroke="#aebeb6" stroke-opacity=".27" stroke-width="1.2"/>
+        <path d="M360 76 L510 184 L586 365 L531 586 L360 773 L189 586 L134 365 L210 184 Z" fill="#020605" fill-opacity=".78" stroke="url(#p63-edge)" stroke-width="1.1"/>
+        <path d="M172 162 L292 250 L244 438 L150 611 M548 162 L428 250 L476 438 L570 611 M85 362 L244 438 L360 390 L476 438 L635 362" fill="none" stroke="#c1d1c9" stroke-opacity=".22" stroke-width=".9"/>
+      </g>
+      <g class="p63-shell-front">
+        <path d="M360 132 L472 222 L516 358 L469 515 L360 640 L251 515 L204 358 L248 222 Z" fill="url(#p63-metal)" fill-opacity=".76" stroke="#d2dfd8" stroke-opacity=".43" stroke-width="1.1"/>
+        <path d="M360 170 L443 239 L477 359 L438 486 L360 574 L282 486 L243 359 L277 239 Z" fill="#020504" stroke="#879d92" stroke-opacity=".35"/>
+        <path d="M360 132 L360 640 M204 358 L516 358 M248 222 L469 515 M472 222 L251 515" stroke="#d8e3dd" stroke-opacity=".14" stroke-width=".7" fill="none"/>
+      </g>
+      <g class="p63-aperture">
+        <ellipse cx="360" cy="358" rx="116" ry="68" transform="rotate(-28 360 358)" fill="none" stroke="#a9c1b5" stroke-opacity=".48" stroke-width="1.1"/>
+        <ellipse cx="360" cy="358" rx="88" ry="48" transform="rotate(43 360 358)" fill="none" stroke="#d4e0d9" stroke-opacity=".31" stroke-width=".8"/>
+        <circle cx="360" cy="358" r="65" fill="url(#p63-core)" stroke="#cadbd1" stroke-opacity=".4"/>
+        <circle cx="360" cy="358" r="43" fill="none" stroke="#93b0a1" stroke-opacity=".35" stroke-width=".7"/>
+        <circle cx="360" cy="358" r="19" fill="#c6d9ce" fill-opacity=".12" filter="url(#p63-soft)"/>
+        <path d="M70 358 H256 M464 358 H650" stroke="url(#p63-edge)" stroke-width="1.2"/>
+        <path d="M360 250 V305 M360 411 V466" stroke="#d7e5dc" stroke-opacity=".45" stroke-width=".8"/>
+      </g>
+      <g fill="none" stroke="#c1d4c9" stroke-opacity=".22" stroke-width=".8"><path d="M114 700 L245 626 L290 663 M606 700 L475 626 L430 663"/><path d="M170 748 L285 692 M550 748 L435 692"/></g>
+    </svg>
+  </div>
+  <div class="p63-signal p63-signal-one"></div><div class="p63-signal p63-signal-two"></div>
+  <div class="p63-caption p63-caption-left"><i></i><span>PERCEPTION FIELD</span></div><div class="p63-caption p63-caption-right"><span>COGNITIVE DEPTH</span><i></i></div>
+  <div class="p63-index"><span>FIELD  /  00</span><span>NONLINEAR SYSTEM</span></div>
+  <div class="p63-foot"><span>OBSERVE</span><i></i><span>INTERPRET</span><i></i><span>RESPOND</span></div>
+  <div class="p63-vignette"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- SHADOW_PHASE83_HANDOFF_BEGIN -->
+<!-- Cross-chat handoff record; documentation only, no executable code. -->
+<!-- {
+  "project": "SHADOW",
+  "phase": "Phase 83",
+  "updated_at_local": "2026-10-17",
+  "new_chat_recall_trigger": "パルス81、実施結果整理のところのファイル開いて",
+  "user_preferences": {
+    "address_user_as": "ブラザー",
+    "user_calls_assistant": "ブラザー",
+    "SHADOW_persona_name": "SHADOW",
+    "user_persona_name": "ミント",
+    "communication": "短く、わかりやすく、一度に一歩ずつ",
+    "absolute_constraints": [
+      "ユーザー側費用0円を目標",
+      "安全性最優先",
+      "合法性とライセンス確認",
+      "既存版を上書き・削除しない",
+      "未検証機能を完成扱いしない",
+      "99.9%は目標であり根拠なく達成宣言しない"
+    ]
+  },
+  "current_candidate": {
+    "path": "SHADOW_Phase83_Deliverables/SHADOW_Phase83_Candidate.html",
+    "before_handoff_bytes": 286429,
+    "prior_reported_sha256": "0ace1af992c23904d5684464099766918bc89f5c4eaf7f8cd636888cedd438d5",
+    "note": "This handoff comment is being added to the HTML; recompute hash after insertion."
+  },
+  "artifacts": [
+    "SHADOW_Phase83_Candidate.html",
+    "SHADOW_Phase83_Deliverables.zip",
+    "SHADOW_Phase83_Audit_Report.md",
+    "SHADOW_Phase83_Capability_Matrix.csv",
+    "SHADOW_Phase83_Test_Results.json",
+    "SHADOW_Phase83_Security_Cost_Audit.md",
+    "SHADOW_Phase83_Recovery_Instructions.md",
+    "SHADOW_Phase83_Tech_Research_Sources.md",
+    "SHADOW_Phase83_Diff.patch",
+    "SHADOW_Phase83_Artifact_Manifest.json",
+    "SHADOW_Phase83_SHA256SUMS.txt",
+    "SHADOW_Phase78_Baseline_Preserved.html",
+    "SHADOW_Phase82_Baseline_Preserved.html",
+    "index.html",
+    "manifest.webmanifest",
+    "service-worker.js",
+    "icon-192.png",
+    "icon-512.png"
+  ],
+  "implemented_or_packaged": [
+    "Phase 83 candidate carries prior UI and includes read-only save/storage self-check, backup format validation, restore preview, and rejection of invalid backup formats.",
+    "PWA manifest, service worker, and icons are packaged.",
+    "Content Security Policy explicitly permits selected external origins for initial local-model acquisition; actual module/model retrieval and inference remain unverified. No paid API is required for the browser-local inference path."
+  ],
+  "reported_test_results_not_real_device_acceptance": {
+    "static_checks": "14/14 reported pass",
+    "limited_ui_tests": "22/22 reported pass",
+    "service_worker_simulation": "9/9 reported pass",
+    "important_limit": "These are limited/simulated tests, not proof of real persistent storage, deployed HTTPS PWA, offline recovery, or iPhone Safari behavior."
+  },
+  "not_yet_verified_or_implemented": [
+    "Real browser origin persistence and actual IndexedDB save/restore tests",
+    "HTTPS PWA installation, service worker update/rollback, offline restart/recovery",
+    "Real iPhone Safari device testing",
+    "long-run stability, quota exhaustion, corrupted storage recovery",
+    "real LLM reasoning connection",
+    "automatic Web research and source verification",
+    "free/legal image/audio/video generation runtime",
+    "external app integrations",
+    "always-on/background voice operation",
+    "permanently free hosting/operation"
+  ],
+  "next_steps": [
+    "Inspect the current Phase 83 HTML and its test/audit files before making further changes.",
+    "Preserve Phase 78/81/82 originals; work only on a new candidate.",
+    "Run real browser-origin storage/backup/restore validation if available.",
+    "Validate HTTPS PWA lifecycle and offline behavior; if unavailable, mark unverified.",
+    "Perform iPhone Safari device tests when possible.",
+    "Only then evaluate legal, safe, zero-cost routes for real AI inference and web research."
+  ],
+  "new_chat_instruction": "When the user says the recall phrase, immediately recall this handoff, open/inspect the Phase 83 candidate and relevant “実施結果整理”/Phase 81 test files if available, state the verified current baseline and resume from the next steps. Do not start over, do not claim memory is stored in the HTML as application behavior, and do not invent missing files."
+} -->
+<!-- SHADOW_PHASE83_HANDOFF_END -->
+
+<script src="./storage.js"></script>
+<script src="./microphone.js"></script>
+<script src="./script.js"></script>
+<script src="./shadow-ai.js" defer></script>
+<script type="module" src="./local-llm.js"></script>
+</body></html>

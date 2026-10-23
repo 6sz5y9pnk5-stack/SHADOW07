@@ -1,0 +1,13 @@
+{
+  "name": "shadow-phase259-local-llm-candidate",
+  "version": "0.2.0",
+  "private": true,
+  "description": "SHADOW candidate with optional browser-local WebLLM inference; no API key required for local inference.",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

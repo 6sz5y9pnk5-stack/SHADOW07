@@ -1,0 +1,26 @@
+{
+  "id": "./",
+  "name": "SHADOW — Phase 245 Storage Health",
+  "short_name": "SHADOW",
+  "description": "ローカル優先の個人用AIワークスペース（保存容量・永続化状態の読み取り点検を追加）",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#050806",
+  "theme_color": "#050806",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

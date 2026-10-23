@@ -1,0 +1,9 @@
+(()=>{'use strict';
+ const state={connected:false,configured:false,model:'',lastError:null};
+ let healthPromise=null;
+ async function health(){if(!healthPromise)healthPromise=fetch('/api/health',{method:'GET',headers:{'Accept':'application/json'},cache:'no-store',credentials:'same-origin'}).then(async r=>{const d=await r.json();state.configured=!!(r.ok&&d.configured);state.model=typeof d.model==='string'?d.model:'';return d}).catch(()=>({ok:false,configured:false}));return healthPromise}
+ async function isConfigured(){const h=await health();return !!h.configured}
+ async function chat(message){if(typeof message!=='string'||!message.trim()||message.length>3000)throw new Error('invalid_message');const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),22000);try{const r=await fetch('/api/chat',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({message}),signal:controller.signal,cache:'no-store'});const d=await r.json().catch(()=>({}));if(!r.ok){state.connected=false;state.lastError=d.error||'request_failed';window.dispatchEvent(new Event('shadow-ai-state'));throw new Error(d.message||d.error||'model_request_failed')}if(typeof d.text!=='string'||!d.text.trim()){state.connected=false;state.lastError='empty_response';window.dispatchEvent(new Event('shadow-ai-state'));throw new Error('empty_model_response')}state.connected=true;state.lastError=null;window.dispatchEvent(new Event('shadow-ai-state'));return d}catch(error){state.connected=false;state.lastError=state.lastError||((error&&error.name==='AbortError')?'timeout':'network_error');window.dispatchEvent(new Event('shadow-ai-state'));throw error}finally{clearTimeout(timer)}}
+ window.ShadowAI=Object.freeze({state,get connected(){return state.connected},isConfigured,chat,refreshHealth:()=>{healthPromise=null;return health()}});
+ health().catch(()=>{});
+})();
