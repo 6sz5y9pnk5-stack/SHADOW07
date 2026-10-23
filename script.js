@@ -99,6 +99,8 @@ canvas.addEventListener('pointerdown',()=>{holdTriggered=false;holdTimer=setTime
 for(const ev of ['pointerup','pointercancel','pointerleave'])canvas.addEventListener(ev,()=>{if(holdTimer!==null){clearTimeout(holdTimer);holdTimer=null}});
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
 canvas.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setFeatureMode(!document.body.classList.contains('feature-mode'))}});
+// Phase 286: #wave is hidden (display:none / pointer-events:none) by later CSS, so its long-press never fired. Bind to the visible .visual layer and add a visible fallback button.
+(function(){const v=document.querySelector('.visual');if(v){v.addEventListener('pointerdown',()=>{if(document.body.classList.contains('feature-mode'))return;if(holdTimer!==null){clearTimeout(holdTimer)}holdTimer=setTimeout(()=>{holdTimer=null;setFeatureMode(true)},650)});for(const ev of ['pointerup','pointercancel','pointerleave'])v.addEventListener(ev,()=>{if(holdTimer!==null){clearTimeout(holdTimer);holdTimer=null}});v.addEventListener('contextmenu',e=>e.preventDefault())}const ob=document.getElementById('openFeature');if(ob)ob.addEventListener('click',()=>setFeatureMode(true))})();
 const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function draw(){
  const rect=canvas.getBoundingClientRect();const dpr=Math.min(window.devicePixelRatio||1,1.5);

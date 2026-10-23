@@ -564,3 +564,8 @@ body{background:#020307!important;color:#dcebf0!important}
 @keyframes p63-breathe{to{transform:scale(1.07) translate3d(1%,-.5%,0);filter:brightness(1.25)}}@keyframes p63-back{to{transform:rotateX(65deg) rotateZ(-19deg) translate3d(1%,-1%,-300px)}}@keyframes p63-front{to{transform:rotateY(-34deg) rotateX(67deg) translate3d(-1%,1%,100px)}}@keyframes p63-float{0%,100%{translate:0 0;rotateX(0deg)}50%{translate:0 -0.7%;rotateX(1.1deg)}}@keyframes p63-tilt{to{transform:rotateY(3deg) rotateX(-1.5deg) translateZ(-10px)}}@keyframes p63-tilt-front{to{transform:rotateY(-2deg) rotateX(1deg) translateZ(14px)}}@keyframes p63-aperture{to{transform:rotate(360deg)}}@keyframes p63-sweep{0%,100%{translate:-2% -12px;opacity:.12}50%{translate:2% 12px;opacity:.75}}
 @media(max-width:420px){.p63-monolith{width:112vw;height:118vh;top:49%}.p63-index,.p63-foot{left:4%;right:4%;font-size:5px;gap:6px}.p63-caption-left{left:4%;top:32%}.p63-caption-right{right:4%;top:68%}}
 @media(prefers-reduced-motion:reduce){.p63-blackglass *{animation:none!important;transition:none!important}}
+
+/* Phase 286 */
+.visual{touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.open-feature{position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);right:12px;z-index:60;min-height:44px;min-width:64px;padding:8px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.28);background:rgba(10,12,12,.55);color:#e8eeee;font-size:14px;opacity:.7}
+body.feature-mode .open-feature{display:none}
