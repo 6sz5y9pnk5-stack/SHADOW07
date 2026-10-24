@@ -5,9 +5,9 @@
   else root.ShadowWake=api;
 })(typeof globalThis!=='undefined'?globalThis:this,function(root){
   'use strict';
-  root.SHADOW_BUILD='v8';
+  root.SHADOW_BUILD='v12';
   var WAKE=/(シャドウ|シャドー|ジャドウ|しゃどう|しゃどー|ｼｬﾄﾞｳ|shadow)/i;
-  var GREETING='はい、主。お傍におります。何なりと';
+  var GREETING='はい、主。ご用件をどうぞ';
   function parse(text){
     var t=String(text||'').replace(/\s+/g,'');
     var m=WAKE.exec(t);

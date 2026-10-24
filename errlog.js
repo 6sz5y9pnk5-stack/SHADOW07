@@ -31,11 +31,11 @@
     var doc=root.document;if(!doc||!doc.body)return;
     if(!btn){
       btn=doc.createElement('button');btn.type='button';btn.id='errlogBtn';
-      btn.style.cssText='position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);right:8px;z-index:99999;padding:8px 12px;border-radius:14px;border:1px solid rgba(255,120,140,.6);background:rgba(40,8,16,.85);color:#ffd6dc;font-size:13px;display:none';
+      btn.style.cssText='position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);right:8px;z-index:99999;width:44px;height:44px;border-radius:22px;border:1px solid rgba(255,120,140,.7);background:rgba(40,8,16,.8);color:#ffb3bf;font-size:22px;line-height:1;padding:0;display:none';
       btn.addEventListener('click',function(ev){ev.stopPropagation();open();});
       doc.body.appendChild(btn);
     }
-    btn.textContent='⚠ エラー '+list.length+'件';
+    btn.textContent='⚠';btn.setAttribute('aria-label','エラー '+list.length+'件。押すと詳細');btn.title='エラー '+list.length+'件';
     btn.style.display=list.length?'block':'none';
   }
   function open(){
