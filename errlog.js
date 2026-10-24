@@ -6,15 +6,15 @@
   function save(){try{root.localStorage.setItem(KEY,JSON.stringify(list.slice(-MAX)));}catch(_){}}
   function stamp(t){var d=new Date(t||Date.now());return d.toLocaleString('ja-JP');}
   function add(kind,msg,where){
-    list.push({t:Date.now(),kind:kind,msg:String(msg||'').slice(0,300),where:String(where||'').slice(0,160)});
+    list.push({t:Date.now(),kind:kind,msg:String(msg||'').slice(0,700),where:String(where||'').slice(0,160)});
     list=list.slice(-MAX);save();render();
   }
   function report(){
     var ua=(root.navigator&&root.navigator.userAgent)||'';
     var wk=root.ShadowWake||{},ll=root.ShadowLocalLLM||{};
-    var head=['【SHADOWエラー報告】','時刻: '+stamp(),
+    var head=['【SHADOWエラー報告】','版: '+(root.SHADOW_BUILD||'不明'),'時刻: '+stamp(),
       '端末: '+ua.slice(0,120),
-      '脳の状態: '+(wk.brain||'-')+' / モデル状態: '+(ll.status||'-')+(ll.error?' / '+ll.error:''),
+      '脳の状態: '+(wk.brain||'-')+' / モデル状態: '+(ll.status||'-')+' / 読み込み元: '+(ll.source||'-')+(ll.error?' / '+ll.error:''),
       '呼びかけ状態: '+(wk.state||'-'),
       '前回の記録: '+(function(){try{return root.localStorage.getItem('shadow.brain.log')||'なし';}catch(_){return '不明';}})(),
       wk.crashed?'注意: '+wk.crashed:'', '---'];

@@ -35,7 +35,7 @@ test('local module declares a browser-local model and no API key field',()=>{
 });
 
 test('concurrent load calls share one initialization promise',async()=>{
- const s=source.replace('await import(CDN_MODULE)','await Promise.resolve(globalThis.__mockWebLLM)');
+ const s=source.replace('await loadWebLLM()','await Promise.resolve(globalThis.__mockWebLLM)');
  let calls=0;let release;const gate=new Promise(r=>release=r);
  const mock={prebuiltAppConfig:{model_list:[{model_id:'Qwen2.5-1.5B-Instruct-q4f16_1-MLC'}]},CreateMLCEngine:async()=>{calls++;await gate;return {chat:{completions:{create:async()=>({choices:[{message:{content:'接続成功'}}]})}}}}};
  // Re-evaluate with an injectable mock module in a fresh VM context.
@@ -47,7 +47,7 @@ test('concurrent load calls share one initialization promise',async()=>{
 });
 
 test('model catalog mismatch is reported and does not mark ready',async()=>{
- const s=source.replace('await import(CDN_MODULE)','await Promise.resolve(globalThis.__mockWebLLM)');
+ const s=source.replace('await loadWebLLM()','await Promise.resolve(globalThis.__mockWebLLM)');
  const context={window:{isSecureContext:true,dispatchEvent(){}},navigator:{gpu:{}},document:{getElementById:id=>id==='localModelStatus'?{textContent:''}:id==='loadLocalModel'?{disabled:false,addEventListener(){}}:null},CustomEvent:function(t,i){this.type=t;this.detail=i.detail},Set,Error,String,Promise,__mockWebLLM:{prebuiltAppConfig:{model_list:[]},CreateMLCEngine:async()=>{throw Error('should_not_be_called')}}};
  vm.runInNewContext(s,context,{timeout:1000});
  await assert.rejects(context.window.ShadowLocalLLM.load(),/model_not_in_prebuilt_catalog/);
@@ -55,7 +55,7 @@ test('model catalog mismatch is reported and does not mark ready',async()=>{
 });
 
 test('empty model response is rejected rather than presented as an answer',async()=>{
- const s=source.replace('await import(CDN_MODULE)','await Promise.resolve(globalThis.__mockWebLLM)');
+ const s=source.replace('await loadWebLLM()','await Promise.resolve(globalThis.__mockWebLLM)');
  const mock={prebuiltAppConfig:{model_list:[{model_id:'Qwen2.5-1.5B-Instruct-q4f16_1-MLC'}]},CreateMLCEngine:async()=>({chat:{completions:{create:async()=>({choices:[{message:{content:'  '}}]})}}})};
  const context={window:{isSecureContext:true,dispatchEvent(){}},navigator:{gpu:{}},document:{getElementById:id=>id==='localModelStatus'?{textContent:''}:id==='loadLocalModel'?{disabled:false,addEventListener(){}}:null},CustomEvent:function(t,i){this.type=t;this.detail=i.detail},Set,Error,String,Promise,__mockWebLLM:mock};
  vm.runInNewContext(s,context,{timeout:1000});
@@ -63,7 +63,7 @@ test('empty model response is rejected rather than presented as an answer',async
 });
 
 test('empty and overlong prompts are rejected before model initialization',async()=>{
- const s=source.replace('await import(CDN_MODULE)','await Promise.resolve(globalThis.__mockWebLLM)');
+ const s=source.replace('await loadWebLLM()','await Promise.resolve(globalThis.__mockWebLLM)');
  let initCalls=0;const mock={prebuiltAppConfig:{model_list:[{model_id:'Qwen2.5-1.5B-Instruct-q4f16_1-MLC'}]},CreateMLCEngine:async()=>{initCalls++;return {chat:{completions:{create:async()=>({choices:[{message:{content:'ok'}}]})}}}}};
  const context={window:{isSecureContext:true,dispatchEvent(){}},navigator:{gpu:{}},document:{getElementById:id=>id==='localModelStatus'?{textContent:''}:id==='loadLocalModel'?{disabled:false,addEventListener(){}}:null},CustomEvent:function(t,i){this.type=t;this.detail=i.detail},Set,Error,String,Promise,__mockWebLLM:mock};
  vm.runInNewContext(s,context,{timeout:1000});
@@ -73,7 +73,7 @@ test('empty and overlong prompts are rejected before model initialization',async
 });
 
 test('failed model initialization clears the loading lock so retry can work',async()=>{
- const s=source.replace('await import(CDN_MODULE)','await Promise.resolve(globalThis.__mockWebLLM)');
+ const s=source.replace('await loadWebLLM()','await Promise.resolve(globalThis.__mockWebLLM)');
  let attempts=0;const mock={prebuiltAppConfig:{model_list:[{model_id:'Qwen2.5-1.5B-Instruct-q4f16_1-MLC'}]},CreateMLCEngine:async()=>{attempts++;if(attempts===1)throw Error('temporary_failure');return {chat:{completions:{create:async()=>({choices:[{message:{content:'再試行成功'}}]})}}}}};
  const context={window:{isSecureContext:true,dispatchEvent(){}},navigator:{gpu:{}},document:{getElementById:id=>id==='localModelStatus'?{textContent:''}:id==='loadLocalModel'?{disabled:false,addEventListener(){}}:null},CustomEvent:function(t,i){this.type=t;this.detail=i.detail},Set,Error,String,Promise,__mockWebLLM:mock};
  vm.runInNewContext(s,context,{timeout:1000});
@@ -85,7 +85,7 @@ test('failed model initialization clears the loading lock so retry can work',asy
 });
 
 test('CDN module acquisition failure is surfaced and a later retry can initialize',async()=>{
- const s=source.replace('await import(CDN_MODULE)','await Promise.resolve(globalThis.__getWebLLM())');
+ const s=source.replace('await loadWebLLM()','await Promise.resolve(globalThis.__getWebLLM())');
  let attempts=0;const good={prebuiltAppConfig:{model_list:[{model_id:'Qwen2.5-1.5B-Instruct-q4f16_1-MLC'}]},CreateMLCEngine:async()=>({chat:{completions:{create:async()=>({choices:[{message:{content:'取得後の推論テスト'}}]})}}})};
  const status={textContent:''};const button={disabled:false,addEventListener(){}};
  const context={window:{isSecureContext:true,dispatchEvent(){}},navigator:{gpu:{}},document:{getElementById:id=>id==='localModelStatus'?status:id==='loadLocalModel'?button:null},CustomEvent:function(t,i){this.type=t;this.detail=i.detail},Set,Error,String,Promise,__getWebLLM:()=>{attempts++;if(attempts===1)return Promise.reject(Error('simulated_dns_failure'));return Promise.resolve(good)}};

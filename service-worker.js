@@ -1,7 +1,7 @@
 'use strict';
 // SHADOW Phase 245: conservative offline shell cache. No network calls or telemetry.
 const CACHE_PREFIX = 'shadow-phase245-shell-';
-const CACHE_NAME = CACHE_PREFIX + '14';
+const CACHE_NAME = CACHE_PREFIX + '16';
 const SHELL = ['./index.html', './style.css', './lite.css', './lite-boot.js', './hologram.js', './wake.js', './errlog.js', './storage.js', './script.js','./microphone.js', './shadow-ai.js', './local-llm.js', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil((async () => {

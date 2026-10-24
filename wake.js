@@ -5,7 +5,7 @@
   else root.ShadowWake=api;
 })(typeof globalThis!=='undefined'?globalThis:this,function(root){
   'use strict';
-  root.SHADOW_BUILD='v12';
+  root.SHADOW_BUILD='v14';
   var WAKE=/(シャドウ|シャドー|ジャドウ|しゃどう|しゃどー|ｼｬﾄﾞｳ|shadow)/i;
   var GREETING='はい、主。ご用件をどうぞ';
   function parse(text){
@@ -39,7 +39,7 @@
   if(/^loading@/.test(prev)){api.crashed='前回は脳の読み込み中に止まりました';}
   api.brain='none';
   var SR=root.SpeechRecognition||root.webkitSpeechRecognition,synth=root.speechSynthesis;
-  var rec=null,muted=false,timer=0,latest='',replySeen=false,busySince=0,ignoreSpeak=0,
+  var brainTimer=0,rec=null,muted=false,timer=0,latest='',replySeen=false,busySince=0,ignoreSpeak=0,
       muteHold=0,armAwait=false,deadline=0,capAt=0;
 
   function setCap(t){api.caption=t;capAt=Date.now();}
@@ -70,19 +70,22 @@
       var tx='';
       for(var i=e.resultIndex;i<e.results.length;i++)tx+=e.results[i][0].transcript;
       latest=tx;clearTimeout(timer);
-      timer=setTimeout(decide,e.results[e.results.length-1].isFinal?250:1000);
+      var fin=e.results[e.results.length-1].isFinal,pp=api.state==='idle'?parse(tx):null;
+      /* 呼びかけだけが聞こえたら、確定を待たずにすぐ返事。続きの言葉がある時は短く待つ */
+      timer=setTimeout(decide,fin?120:(pp&&pp.rest.length<2?220:700));
     };
     rec.onerror=function(e){
       if(e&&(e.error==='not-allowed'||e.error==='service-not-allowed')){
         set('off');setCap('マイクか音声認識が許可されてないよ。iPhoneの設定で許可してね');
       }
     };
-    rec.onend=function(){if(api.state!=='off'&&!muted)setTimeout(startRec,350);};
+    rec.onend=function(){if(api.state!=='off'&&!muted)setTimeout(startRec,120);};
   }
 
   function greet(){
-    set('awaiting');muted=true;muteHold=Date.now()+900;armAwait=true;
-    stopRec();speak(GREETING);
+    api.lat={heard:Date.now()};
+    set('awaiting');muted=true;muteHold=Date.now()+350;armAwait=true;
+    stopRec();speak(GREETING);api.lat.spoke=Date.now();
   }
   function command(text){
     var ta=doc.getElementById('message'),btn=doc.getElementById('send');
@@ -109,12 +112,12 @@
     if(sp&&!muted){muted=true;stopRec();}
     else if(!sp&&muted&&now>muteHold){
       muted=false;startRec();
-      if(armAwait){armAwait=false;deadline=now+10000;}
+      if(armAwait){armAwait=false;deadline=now+10000;if(brainTimer){clearTimeout(brainTimer);brainTimer=0;setTimeout(brainStart,600);}}
     }
     if(api.state==='awaiting'&&deadline&&now>deadline&&!muted){set('idle');deadline=0;}
     if(api.state==='busy'&&((replySeen&&!sp)||now-busySince>90000))set('idle');
     if(api.state==='idle'&&api.caption&&now-capAt>15000)api.caption='';
-  },300);
+  },150);
 
   /* 返事が画面に出たら、字幕として保存 */
   if(typeof MutationObserver==='function'){
@@ -140,8 +143,11 @@
     if(!rec)build();
     set('idle');setCap('');muted=false;ignoreSpeak=Date.now()+1200;
     try{rec.start();}catch(_){}
-    brainStart();
-    try{var u=new SpeechSynthesisUtterance('。');u.volume=0;synth.speak(u);}catch(_){}
+    api.lat={tap:Date.now()};
+    /* 声の許可取りは、マイクが動き出してから(マイクの立ち上がりを邪魔しない) */
+    setTimeout(function(){try{var u=new SpeechSynthesisUtterance('。');u.volume=0;synth.speak(u);}catch(_){}},400);
+    /* 脳の読み込みは重いので、最初の返事を言い終えるまで待つ。呼ばれなくても30秒後には始める */
+    brainTimer=setTimeout(brainStart,30000);
   });
   return api;
 });
