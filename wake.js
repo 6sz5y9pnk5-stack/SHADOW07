@@ -5,6 +5,7 @@
   else root.ShadowWake=api;
 })(typeof globalThis!=='undefined'?globalThis:this,function(root){
   'use strict';
+  root.SHADOW_BUILD='v8';
   var WAKE=/(シャドウ|シャドー|ジャドウ|しゃどう|しゃどー|ｼｬﾄﾞｳ|shadow)/i;
   var GREETING='はい、主。お傍におります。何なりと';
   function parse(text){

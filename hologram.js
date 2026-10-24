@@ -66,8 +66,7 @@
     }
   }
 
-  function vortex(t,cx,cy,R,amp){
-    var sp=t*.00042*(1+amp*.8);
+  function vortex(t,cx,cy,R,amp,sp){
     /* 渦の腕: 3色 × 3本の流れる筋 */
     for(var ar=0;ar<3;ar++){
       for(var st=0;st<3;st++){
@@ -178,6 +177,7 @@
     if(wk.state==='idle'&&wk.brain==='loading')hint='脳を準備中…（少し待ってね）';
     if(wk.state==='idle'&&wk.brain==='error')hint='脳なしで待機中。「シャドウ」と呼んでね';
     g.fillText(hint,W/2,H*.955);
+    g.textAlign='left';g.font='10px '+fonts;g.fillStyle='rgba(170,200,235,.35)';g.fillText(window.SHADOW_BUILD||'',10,H-8);g.textAlign='center';
     if(!wk.caption)return;
     g.font='15px '+fonts;g.fillStyle='rgba(228,238,252,.9)';
     var lines=[],cur='',tx=wk.caption.replace(/\s+/g,' ');
@@ -192,17 +192,18 @@
   function draw(now){
     raf=requestAnimationFrame(draw);
     if(document.hidden||now-last<33)return;
-    last=now;
+    var dt=Math.min(now-last,100);last=now;
     var sp=window.speechSynthesis&&speechSynthesis.speaking?1:0;
     draw.amp=(draw.amp||0)+(sp-(draw.amp||0))*.12;
     var wk=window.ShadowWake,st=wk?wk.state:'off',amp=draw.amp,t=now;
     if(st==='awaiting')amp=Math.max(amp,.35);else if(st==='busy')amp=Math.max(amp,.2+.15*Math.sin(t*.01));
+    draw.ph=(draw.ph||0)+dt*.00042*(1+amp*.8);
     var bg=g.createLinearGradient(0,0,0,H);
     bg.addColorStop(0,'#050b1c');bg.addColorStop(.6,'#081631');bg.addColorStop(1,'#04091a');
     g.fillStyle=bg;g.fillRect(0,0,W,H);
     aurora(t);dots(t);letters(t);
     var cx=W/2,cy=H*.46,R=Math.min(W,H)*.32*(1+.03*Math.sin(t*.0013)+.04*amp*Math.sin(t*.012));
-    vortex(t,cx,cy,R,amp);mesh(t,cx,amp);eye(t,cx,cy,R,amp);words();
+    vortex(t,cx,cy,R,amp,draw.ph);mesh(t,cx,amp);eye(t,cx,cy,R,amp);words();
     if(reduce){cancelAnimationFrame(raf);raf=0;}
   }
 
