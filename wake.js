@@ -5,7 +5,7 @@
   else root.ShadowWake=api;
 })(typeof globalThis!=='undefined'?globalThis:this,function(root){
   'use strict';
-  root.SHADOW_BUILD='v14';
+  root.SHADOW_BUILD='v16';
   var WAKE=/(シャドウ|シャドー|ジャドウ|しゃどう|しゃどー|ｼｬﾄﾞｳ|shadow)/i;
   var GREETING='はい、主。ご用件をどうぞ';
   function parse(text){
@@ -26,6 +26,12 @@
   function brainStart(){
     var L=root.ShadowLocalLLM;
     if(!L||L.isReady()||L.status==='loading')return;
+    /* 前回の読み込み中に落ちていたら、同じことを繰り返さず自動では読まない */
+    if(L.crashedBefore&&L.crashedBefore()){
+      api.brain='crashed';api.crashed='前回は脳の読み込み中に止まりました（自動読み込みを止めています）';
+      setCap('前回は脳の読み込み中に止まりました。もう一度試すなら、画面を長く押してください');
+      return;
+    }
     mark('loading');
     api.brain='loading';setCap('脳を起こしています。初回は少し時間がかかります');
     L.load().then(function(){

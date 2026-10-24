@@ -21,6 +21,15 @@ async function brainReply(input){
   try{const remote=await window.ShadowAI.chat(t);if(remote&&typeof remote.text==='string'&&remote.text.trim())return remote.text;}
   catch(error){throw new Error('AIサーバー接続に失敗しました。ローカル応答へ偽装せず、接続状態を確認してください。');}
  }
+ /* 声で呼ばれた時、脳が未準備なら長い設計文ではなく、短く状況を答える */
+ if(window.ShadowWake&&(window.ShadowWake.state==='busy')){
+  const L=window.ShadowLocalLLM,st=L&&L.status;
+  if(st==='loading')return '主、脳をまだ起こしている途中です。もう少しだけお待ちください。';
+  if(st==='unsupported'||st==='blocked')return '主、この端末では脳を動かせませんでした。今は呼びかけにだけお答えできます。';
+  if(st==='error')return '主、脳の読み込みに失敗しました。右上の警告マークから報告をコピーしてください。';
+  if(L&&L.crashedBefore&&L.crashedBefore())return '主、前回は脳の読み込み中に止まりました。画面をもう一度タップしてから、脳を起こしてよいか教えてください。';
+  return '主、脳はまだ起きていません。しばらくしてからもう一度お呼びください。';
+ }
  const gate=window.ShadowKernel?window.ShadowKernel.classify(t):null;
  if(gate&&gate.decision==='block_secret_handling')return '安全ゲートで停止したよ。パスワード、認証コード、APIキーなどの秘密情報を会話ログや通常の保存領域に記録することはできない。安全な公式保管方法が利用できるかを先に確認しよう。';
  if(gate&&gate.decision==='require_explicit_confirmation')return '安全ゲート：これは外部操作または変更を伴う可能性がある依頼だよ。現在の試作には外部操作アダプターがないため、実行したとは言えない。対象・影響・取り消し方法を確認し、実際の操作は公式機能と明示承認がそろった場合だけ進める。';

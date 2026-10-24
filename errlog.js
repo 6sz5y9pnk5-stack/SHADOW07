@@ -16,6 +16,8 @@
       '端末: '+ua.slice(0,120),
       '脳の状態: '+(wk.brain||'-')+' / モデル状態: '+(ll.status||'-')+' / 読み込み元: '+(ll.source||'-')+(ll.error?' / '+ll.error:''),
       '呼びかけ状態: '+(wk.state||'-'),
+      '読み込み段階: '+((ll.stageLog&&ll.stageLog())||'なし'),
+      '端末情報: WebGPU='+((root.navigator&&root.navigator.gpu)?'あり':'なし')+' / 対象モデル='+(ll.model||'-')+' / iPhone判定='+(ll.isIOS?'はい':'いいえ'),
       '前回の記録: '+(function(){try{return root.localStorage.getItem('shadow.brain.log')||'なし';}catch(_){return '不明';}})(),
       wk.crashed?'注意: '+wk.crashed:'', '---'];
     var body=list.map(function(e){return stamp(e.t)+' ['+e.kind+'] '+e.msg+(e.where?' @'+e.where:'');});
