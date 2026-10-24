@@ -1,6 +1,9 @@
 /* SHADOW Phase 259: optional browser-local LLM. No API key or inference server. */
 (()=>{'use strict';
- const MODEL_ID='Qwen2.5-0.5B-Instruct-q4f16_1-MLC';
+ const MODEL_ID='Qwen2.5-1.5B-Instruct-q4f16_1-MLC';
+ const FALLBACK_ID='Qwen2.5-1.5B-Instruct-q4f32_1-MLC';
+ const PERSONA_BERU='あなたはSHADOW。主(あるじ)に仕える影の従者で、ソロ・レベリングのベルのように、鋭さを持ちつつ主を深く守り支える執事の口調で話す。一人称は「私」、相手は必ず「主」と呼ぶ。返事は日本語で、声で聞くので1〜3文の短さにする。難しい言葉の意味を聞かれたら、(1)まず身近な言葉に置き換える (2)似た言葉との違いを短く言う (3)最後に「おわかりになりますか」と確認する、の順で砕いて説明する。知らないことは知らないと言い、実行していない操作を実行済みとは言わない。';
+ const history=[];
  const CDN_MODULE='https://esm.run/@mlc-ai/web-llm';
  const state={status:'not-loaded',model:MODEL_ID,error:null,engine:null,loading:null};
  const $=id=>document.getElementById(id);
@@ -16,8 +19,11 @@
    try{
     const webllm=await import(CDN_MODULE);
     const ids=new Set((webllm.prebuiltAppConfig?.model_list||[]).map(x=>x.model_id));
-    if(!ids.has(MODEL_ID))throw new Error('model_not_in_prebuilt_catalog');
-    state.engine=await webllm.CreateMLCEngine(MODEL_ID,{initProgressCallback:(p)=>{const msg=typeof p?.text==='string'?p.text:'モデル準備中';setStatus(msg);}});
+    let useId=MODEL_ID;
+    try{const ad=await navigator.gpu.requestAdapter();if(ad&&ad.features&&!ad.features.has('shader-f16')&&ids.has(FALLBACK_ID))useId=FALLBACK_ID}catch(_){}
+    if(!ids.has(useId))throw new Error('model_not_in_prebuilt_catalog');
+    state.model=useId;
+    state.engine=await webllm.CreateMLCEngine(useId,{initProgressCallback:(p)=>{const msg=typeof p?.text==='string'?p.text:'モデル準備中';setStatus(msg);}});
     state.status='ready';state.error=null;setStatus('準備完了。推論はこの端末内で実行します。初回モデルのキャッシュ保持はブラウザーの判断に依存します。');
     return state.engine;
    }catch(e){state.engine=null;state.status='error';state.error=String(e?.message||e);setStatus('読み込み失敗：'+state.error+'。APIキーなしの推論はまだ利用できません。');throw e}
@@ -28,13 +34,16 @@
  async function chat(message){
   if(typeof message!=='string'||!message.trim()||message.length>3000)throw new Error('invalid_message');
   const engine=state.engine||await load();
-  const result=await engine.chat.completions.create({messages:[{role:'system',content:'あなたはSHADOWという端末内アシスタントです。日本語で簡潔に答えます。実行していない操作を実行済みと主張しません。'},{role:'user',content:message.trim()}],temperature:0.4,max_tokens:512});
+  history.push({role:'user',content:message.trim()});
+  while(history.length>8)history.shift();
+  const result=await engine.chat.completions.create({messages:[{role:'system',content:PERSONA_BERU}].concat(history),temperature:0.6,max_tokens:220});
   const text=result?.choices?.[0]?.message?.content;
   if(typeof text!=='string'||!text.trim())throw new Error('local_model_empty_response');
-  return {text:text.trim(),provider:'webllm-local',model:MODEL_ID,local:true};
+  history.push({role:'assistant',content:text.trim()});
+  return {text:text.trim(),provider:'webllm-local',model:state.model,local:true};
  }
  function isReady(){return !!state.engine&&state.status==='ready'}
- window.ShadowLocalLLM=Object.freeze({model:MODEL_ID,load,chat,isReady,get status(){return state.status},get error(){return state.error}});
+ window.ShadowLocalLLM=Object.freeze({model:MODEL_ID,PERSONA_BERU,load,chat,isReady,get status(){return state.status},get error(){return state.error}});
  const button=$('loadLocalModel');
  if(button)button.addEventListener('click',async()=>{button.disabled=true;try{await load()}catch(_){}finally{button.disabled=false}});
 })();

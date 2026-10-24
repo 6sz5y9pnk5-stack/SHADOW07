@@ -16,7 +16,7 @@ function brainIntent(input){const t=input.toLowerCase();if(/(覚えてる|覚え
 function brainPlan(input){const t=input.toLowerCase();if(/(脳|shadow|記憶|思考|司令塔)/i.test(t))return ['関連する記憶を検索し、出典と日時を付けて提示する','依頼を分類し、必要なら確認質問を出す','作業を小さな手順に分解し、完了条件を定義する','危険操作を独立した安全ゲートで止める','実行結果を検証し、履歴と復旧地点を保存する','最後に本格AI推論を接続し、同じテストで品質を測る'];return ['目標と完了条件を明確にする','必要な情報・制約を集める','作業を小さく分けて実行する','結果を独立して確認する','結果と次の一手を記録する']}
 async function brainReply(input){
  const intent=brainIntent(input),t=input.trim();
- if(window.ShadowLocalLLM&&window.ShadowLocalLLM.isReady()){try{const local=await window.ShadowLocalLLM.chat(t);if(local&&typeof local.text==='string'&&local.text.trim())return '[端末内AI · '+local.model+']\n'+local.text}catch(error){throw new Error('端末内AI推論に失敗しました：'+String(error&&error.message||error));}}
+ if(window.ShadowLocalLLM&&window.ShadowLocalLLM.isReady()){try{const local=await window.ShadowLocalLLM.chat(t);if(local&&typeof local.text==='string'&&local.text.trim())return local.text}catch(error){throw new Error('端末内AI推論に失敗しました：'+String(error&&error.message||error));}}
  if(window.ShadowAI&&await window.ShadowAI.isConfigured()){
   try{const remote=await window.ShadowAI.chat(t);if(remote&&typeof remote.text==='string'&&remote.text.trim())return remote.text;}
   catch(error){throw new Error('AIサーバー接続に失敗しました。ローカル応答へ偽装せず、接続状態を確認してください。');}

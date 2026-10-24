@@ -17,6 +17,26 @@
   var doc=root.document;
   if(!doc||typeof doc.addEventListener!=='function')return api;
 
+
+  /* 脳の自動読み込み。落ちた時に原因を追えるよう、段階をlocalStorageに残す */
+  var LOG='shadow.brain.log';
+  function mark(s){try{root.localStorage.setItem(LOG,s+'@'+Date.now());}catch(_){}}
+  function lastMark(){try{return root.localStorage.getItem(LOG)||'';}catch(_){return '';}}
+  function brainStart(){
+    var L=root.ShadowLocalLLM;
+    if(!L||L.isReady()||L.status==='loading')return;
+    mark('loading');
+    api.brain='loading';setCap('脳を起こしています。初回は少し時間がかかります');
+    L.load().then(function(){
+      mark('ready');api.brain='ready';setCap('脳の準備ができました。「シャドウ」と呼んでください');
+    }).catch(function(e){
+      mark('error:'+String(e&&e.message||e).slice(0,60));api.brain='error';
+      setCap('脳の読み込みに失敗しました。呼びかけだけは使えます');
+    });
+  }
+  var prev=lastMark();
+  if(/^loading@/.test(prev)){api.crashed='前回は脳の読み込み中に止まりました';}
+  api.brain='none';
   var SR=root.SpeechRecognition||root.webkitSpeechRecognition,synth=root.speechSynthesis;
   var rec=null,muted=false,timer=0,latest='',replySeen=false,busySince=0,ignoreSpeak=0,
       muteHold=0,armAwait=false,deadline=0,capAt=0;
@@ -61,7 +81,7 @@
 
   function greet(){
     set('awaiting');muted=true;muteHold=Date.now()+900;armAwait=true;
-    stopRec();setCap(GREETING);speak(GREETING);
+    stopRec();speak(GREETING);
   }
   function command(text){
     var ta=doc.getElementById('message'),btn=doc.getElementById('send');
@@ -91,7 +111,7 @@
       if(armAwait){armAwait=false;deadline=now+10000;}
     }
     if(api.state==='awaiting'&&deadline&&now>deadline&&!muted){set('idle');deadline=0;}
-    if(api.state==='busy'&&((replySeen&&!sp)||now-busySince>30000))set('idle');
+    if(api.state==='busy'&&((replySeen&&!sp)||now-busySince>90000))set('idle');
     if(api.state==='idle'&&api.caption&&now-capAt>15000)api.caption='';
   },300);
 
@@ -100,9 +120,9 @@
     new MutationObserver(function(ms){
       ms.forEach(function(m){
         m.addedNodes.forEach(function(n){
-          if(n.nodeType===1&&n.classList&&n.classList.contains('bubble')&&n.classList.contains('shadow')&&api.state==='busy'){
+          if(n.nodeType===1&&n.classList&&n.classList.contains('bubble')&&n.classList.contains('shadow')&&(api.state==='busy'||api.state==='idle'&&Date.now()-busySince<95000)){
             var b=n.querySelector('div'),t=(b?b.textContent:n.textContent)||'';
-            setCap(t.replace(/^\[[^\]]*\]\s*/,'').slice(0,90));replySeen=true;
+            replySeen=true;
           }
         });
       });
@@ -119,6 +139,7 @@
     if(!rec)build();
     set('idle');setCap('');muted=false;ignoreSpeak=Date.now()+1200;
     try{rec.start();}catch(_){}
+    brainStart();
     try{var u=new SpeechSynthesisUtterance('。');u.volume=0;synth.speak(u);}catch(_){}
   });
   return api;

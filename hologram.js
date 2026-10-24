@@ -174,7 +174,10 @@
     var wk=window.ShadowWake;if(!wk)return;
     g.textAlign='center';g.font='13px '+fonts;
     g.fillStyle='rgba(170,200,235,'+(wk.state==='off'?.8:.45)+')';
-    g.fillText(HINT[wk.state]||'',W/2,H*.955);
+    var hint=HINT[wk.state]||'';
+    if(wk.state==='idle'&&wk.brain==='loading')hint='脳を準備中…（少し待ってね）';
+    if(wk.state==='idle'&&wk.brain==='error')hint='脳なしで待機中。「シャドウ」と呼んでね';
+    g.fillText(hint,W/2,H*.955);
     if(!wk.caption)return;
     g.font='15px '+fonts;g.fillStyle='rgba(228,238,252,.9)';
     var lines=[],cur='',tx=wk.caption.replace(/\s+/g,' ');
